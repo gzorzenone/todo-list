@@ -1,25 +1,33 @@
 import { projects } from "./project";
-import { Todo } from "./todo";
 import { populateInfo, populateTodos } from "./displayController";
+import { newTodo } from "./newTodo";
 
-function newTodo() {
-  let title = document.querySelector("#todoTitle").value;
-  let description = document.querySelector("#todoDescription").value;
-  let dueDate = document.querySelector("#todoDueDate").value;
-  let priority = document.querySelector("#todoPriority").value;
+function editTodo(currentProject, index) {
   let project = document.querySelector("#todoProject").value;
 
-  projects[project].todos.push(new Todo(title, description, dueDate, priority, project));
+  if(currentProject == project) {
+    projects[project].todos[index].title = document.querySelector("#todoTitle").value;
+    projects[project].todos[index].description = document.querySelector("#todoDescription").value;
+    projects[project].todos[index].dueDate = document.querySelector("#todoDueDate").value;
+    projects[project].todos[index].priority = document.querySelector("#todoPriority").value;
+    projects[project].todos[index].project = document.querySelector("#todoProject").value;
+  }
+  else {
+    projects[currentProject].todos.splice(index, 1);
+    newTodo();
+  }
 }
 
-function newTodoDialog() {
+function editTodoDialog(todo, index) {
+  let currentProject = todo.project;
+
   const dialog = document.createElement("dialog");
 
   const form = document.createElement("form");
   dialog.appendChild(form);
 
   const legend = document.createElement("legend");
-  legend.textContent = "Create new todo:";
+  legend.textContent = "Edit todo:";
   form.appendChild(legend);
 
   const titleLabel = document.createElement("label");
@@ -30,6 +38,7 @@ function newTodoDialog() {
   titleInput.setAttribute("type", "text");
   titleInput.setAttribute("id", "todoTitle");
   titleInput.setAttribute("name", "todoTitle");
+  titleInput.value = todo.title;
   form.appendChild(titleInput);
 
   const descriptionLabel = document.createElement("label");
@@ -40,6 +49,7 @@ function newTodoDialog() {
   descriptionInput.setAttribute("type", "text");
   descriptionInput.setAttribute("id", "todoDescription");
   descriptionInput.setAttribute("name", "todoDescription");
+  descriptionInput.value = todo.description;
   form.appendChild(descriptionInput);
 
   const dueDateLabel = document.createElement("label");
@@ -50,6 +60,7 @@ function newTodoDialog() {
   dueDateInput.setAttribute("type", "date");
   dueDateInput.setAttribute("id", "todoDueDate");
   dueDateInput.setAttribute("name", "todoDueDate");
+  dueDateInput.value = todo.dueDate;
   form.appendChild(dueDateInput);
 
   const priorityLabel = document.createElement("label");
@@ -60,6 +71,7 @@ function newTodoDialog() {
   priorityInput.setAttribute("type", "text");
   priorityInput.setAttribute("id", "todoPriority");
   priorityInput.setAttribute("name", "todoPriority");
+  priorityInput.value = todo.priority;
   form.appendChild(priorityInput);
 
   const projectLabel = document.createElement("label");
@@ -73,6 +85,9 @@ function newTodoDialog() {
     const projectOption = document.createElement("option");
     projectOption.setAttribute("value", index);
     projectOption.textContent = project.title;
+    if(index == currentProject) {
+      projectOption.selected = true;
+    }
     projectInput.appendChild(projectOption);
   });
   form.appendChild(projectInput);
@@ -92,7 +107,7 @@ function newTodoDialog() {
   confirmBtn.textContent = "Confirm";
   confirmBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    newTodo();
+    editTodo(currentProject, index);
     let project = document.querySelector("#todoProject").value;
     populateInfo(projects[project]);
     populateTodos(projects[project], project);
@@ -104,4 +119,4 @@ function newTodoDialog() {
   return dialog;
 }
 
-export { newTodo, newTodoDialog };
+export { editTodoDialog };

@@ -1,5 +1,6 @@
 import { projects } from "./project";
 import { items, info, todos } from ".";
+import { editTodoDialog } from "./editTodo";
 
 function displayDialog(dialog) {
   document.body.appendChild(dialog);
@@ -8,13 +9,13 @@ function displayDialog(dialog) {
 
 function populateSidebar() {
   items.replaceChildren();
-  projects.forEach((project) => {
+  projects.forEach((project, index) => {
     const item = document.createElement("div");
     item.classList.add("item");
     item.textContent = project.title;
     item.addEventListener("click", () => {
       populateInfo(project);
-      populateTodos(project);
+      populateTodos(project, index);
     });
     items.appendChild(item);
   });
@@ -33,9 +34,9 @@ function populateInfo(project) {
   info.appendChild(description);
 }
 
-function populateTodos(project) {
+function populateTodos(project, projectIndex) {
   todos.replaceChildren();
-  project.todos.forEach((todo) => {
+  project.todos.forEach((todo, index) => {
     const card = document.createElement("div");
     card.classList.add("card");
 
@@ -59,8 +60,24 @@ function populateTodos(project) {
     priority.textContent = `Priority: ${todo.priority}`;
     card.appendChild(priority);
 
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.addEventListener("click", () => {
+      displayDialog(editTodoDialog(todo, index));
+    });
+    card.appendChild(editBtn);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.setAttribute("data-index-number", index);
+    removeBtn.textContent = "Remove";
+    removeBtn.addEventListener("click", () => {
+      projects[projectIndex].todos.splice(removeBtn.dataset.indexNumber, 1);
+      populateTodos(project, projectIndex);
+    });
+    card.appendChild(removeBtn);
+
     todos.appendChild(card);
   });
 }
 
-export { displayDialog, populateSidebar, populateTodos };
+export { displayDialog, populateSidebar, populateInfo, populateTodos };
