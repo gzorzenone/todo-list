@@ -2,9 +2,9 @@ import { Project, projects } from "./project";
 import { populateSidebar } from "./displayController";
 
 function newProject() {
-  const title = document.querySelector("#projectTitle").value;
-  const description = document.querySelector("#projectDescription").value;
-  const todos = [];
+  let title = document.querySelector("#projectTitle").value;
+  let description = document.querySelector("#projectDescription").value;
+  let todos = [];
 
   projects.push(new Project(title, description, todos));
 }
@@ -43,6 +43,9 @@ function newProjectDialog() {
   cancelBtn.setAttribute("type", "submit");
   cancelBtn.setAttribute("formmethod", "dialog");
   cancelBtn.textContent = "Cancel";
+  cancelBtn.addEventListener("click", () => {
+    dialog.remove();
+  });
   form.appendChild(cancelBtn);
 
   const confirmBtn = document.createElement("button");
@@ -54,6 +57,7 @@ function newProjectDialog() {
     newProject();
     populateSidebar();
     dialog.close();
+    dialog.remove();
   });
   form.appendChild(confirmBtn);
 

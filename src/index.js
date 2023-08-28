@@ -1,5 +1,6 @@
 import { displayDialog, populateSidebar } from "./displayController";
 import { newProjectDialog } from "./newProject";
+import { newTodoDialog } from "./newTodo";
 
 const content = document.createElement("div");
 content.classList.add("content");
@@ -19,6 +20,13 @@ newProjectBtn.addEventListener("click", () => {
   displayDialog(newProjectDialog());
 });
 sidebar.appendChild(newProjectBtn);
+
+const newTodoBtn = document.createElement("button");
+newTodoBtn.textContent = "New Todo";
+newTodoBtn.addEventListener("click", () => {
+  displayDialog(newTodoDialog());
+});
+sidebar.appendChild(newTodoBtn);
 
 const items = document.createElement("div");
 items.classList.add("items");
