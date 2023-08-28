@@ -1,25 +1,25 @@
-import { projects } from "./project";
 import { populateInfo, populateTodos } from "./displayController";
 import { newTodo } from "./newTodo";
+import { projects } from "./project";
 
-function editTodo(currentProject, index) {
-  let project = document.querySelector("#todoProject").value;
+function editTodo(currentProjectIndex, index) {
+  let projectIndex = document.querySelector("#todoProject").value;
 
-  if(currentProject == project) {
-    projects[project].todos[index].title = document.querySelector("#todoTitle").value;
-    projects[project].todos[index].description = document.querySelector("#todoDescription").value;
-    projects[project].todos[index].dueDate = document.querySelector("#todoDueDate").value;
-    projects[project].todos[index].priority = document.querySelector("#todoPriority").value;
-    projects[project].todos[index].project = document.querySelector("#todoProject").value;
+  if(currentProjectIndex == projectIndex) {
+    projects[projectIndex].todos[index].title = document.querySelector("#todoTitle").value;
+    projects[projectIndex].todos[index].description = document.querySelector("#todoDescription").value;
+    projects[projectIndex].todos[index].dueDate = document.querySelector("#todoDueDate").value;
+    projects[projectIndex].todos[index].priority = document.querySelector("#todoPriority").value;
+    projects[projectIndex].todos[index].project = document.querySelector("#todoProject").value;
   }
   else {
-    projects[currentProject].todos.splice(index, 1);
+    projects[currentProjectIndex].todos.splice(index, 1);
     newTodo();
   }
 }
 
 function editTodoDialog(todo, index) {
-  let currentProject = todo.project;
+  let currentProjectIndex = todo.project;
 
   const dialog = document.createElement("dialog");
 
@@ -85,7 +85,7 @@ function editTodoDialog(todo, index) {
     const projectOption = document.createElement("option");
     projectOption.setAttribute("value", index);
     projectOption.textContent = project.title;
-    if(index == currentProject) {
+    if(index == currentProjectIndex) {
       projectOption.selected = true;
     }
     projectInput.appendChild(projectOption);
@@ -107,10 +107,10 @@ function editTodoDialog(todo, index) {
   confirmBtn.textContent = "Confirm";
   confirmBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    editTodo(currentProject, index);
-    let project = document.querySelector("#todoProject").value;
-    populateInfo(projects[project], project);
-    populateTodos(projects[project], project);
+    editTodo(currentProjectIndex, index);
+    let projIndex = document.querySelector("#todoProject").value;
+    populateInfo(projects[projIndex], projIndex);
+    populateTodos(projects[projIndex], projIndex);
     dialog.close();
     dialog.remove();
   });

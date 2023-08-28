@@ -1,6 +1,6 @@
+import { populateInfo, populateTodos } from "./displayController";
 import { projects } from "./project";
 import { Todo } from "./todo";
-import { populateInfo, populateTodos } from "./displayController";
 
 function newTodo() {
   let title = document.querySelector("#todoTitle").value;
@@ -93,9 +93,9 @@ function newTodoDialog() {
   confirmBtn.addEventListener("click", (e) => {
     e.preventDefault();
     newTodo();
-    let project = document.querySelector("#todoProject").value;
-    populateInfo(projects[project], project);
-    populateTodos(projects[project], project);
+    let projectIndex = document.querySelector("#todoProject").value;
+    populateInfo(projects[projectIndex], projectIndex);
+    populateTodos(projects[projectIndex], projectIndex);
     dialog.close();
     dialog.remove();
   });

@@ -1,4 +1,4 @@
-import { populateInfo, populateSidebar, populateTodos } from "./displayController";
+import { populateSidebar, populateInfo, populateTodos } from "./displayController";
 
 function editProject(project) {
   project.title = document.querySelector("#projectTitle").value;
@@ -54,8 +54,8 @@ function editProjectDialog(project, index) {
     e.preventDefault();
     editProject(project);
     populateSidebar();
-    populateInfo(project);
-    populateTodos(project, index)
+    populateInfo(project, index);
+    populateTodos(project, index);
     dialog.close();
     dialog.remove();
   });

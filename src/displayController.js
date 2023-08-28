@@ -1,7 +1,7 @@
-import { projects } from "./project";
 import { items, info, todos } from ".";
-import { editTodoDialog } from "./editTodo";
 import { editProjectDialog } from "./editProject";
+import { editTodoDialog } from "./editTodo";
+import { projects } from "./project";
 
 function displayDialog(dialog) {
   document.body.appendChild(dialog);

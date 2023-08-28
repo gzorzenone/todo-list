@@ -1,5 +1,5 @@
-import { Project, projects } from "./project";
 import { populateSidebar } from "./displayController";
+import { Project, projects } from "./project";
 
 function newProject() {
   let title = document.querySelector("#projectTitle").value;
