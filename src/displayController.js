@@ -1,6 +1,7 @@
 import { projects } from "./project";
 import { items, info, todos } from ".";
 import { editTodoDialog } from "./editTodo";
+import { editProjectDialog } from "./editProject";
 
 function displayDialog(dialog) {
   document.body.appendChild(dialog);
@@ -14,14 +15,14 @@ function populateSidebar() {
     item.classList.add("item");
     item.textContent = project.title;
     item.addEventListener("click", () => {
-      populateInfo(project);
+      populateInfo(project, index);
       populateTodos(project, index);
     });
     items.appendChild(item);
   });
 }
 
-function populateInfo(project) {
+function populateInfo(project, index) {
   info.replaceChildren();
   const title = document.createElement("div");
   title.classList.add("title");
@@ -32,6 +33,24 @@ function populateInfo(project) {
   description.classList.add("description");
   description.textContent = project.description;
   info.appendChild(description);
+
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+  editBtn.addEventListener("click", () => {
+    displayDialog(editProjectDialog(project, index));
+  });
+  info.appendChild(editBtn);
+
+  const removeBtn = document.createElement("button");
+  removeBtn.setAttribute("data-index-number", index);
+  removeBtn.textContent = "Remove";
+  removeBtn.addEventListener("click", () => {
+    projects.splice(removeBtn.dataset.indexNumber, 1);
+    populateSidebar();
+    info.replaceChildren();
+    todos.replaceChildren();
+  });
+  info.appendChild(removeBtn);
 }
 
 function populateTodos(project, projectIndex) {

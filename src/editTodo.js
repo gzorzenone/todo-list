@@ -109,7 +109,7 @@ function editTodoDialog(todo, index) {
     e.preventDefault();
     editTodo(currentProject, index);
     let project = document.querySelector("#todoProject").value;
-    populateInfo(projects[project]);
+    populateInfo(projects[project], project);
     populateTodos(projects[project], project);
     dialog.close();
     dialog.remove();
