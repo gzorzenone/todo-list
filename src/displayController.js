@@ -1,5 +1,5 @@
 import { projects } from "./project";
-import { items, todos } from ".";
+import { items, info, todos } from ".";
 
 function displayDialog(dialog) {
   document.body.appendChild(dialog);
@@ -13,10 +13,24 @@ function populateSidebar() {
     item.classList.add("item");
     item.textContent = project.title;
     item.addEventListener("click", () => {
+      populateInfo(project);
       populateTodos(project);
     });
     items.appendChild(item);
   });
+}
+
+function populateInfo(project) {
+  info.replaceChildren();
+  const title = document.createElement("div");
+  title.classList.add("title");
+  title.textContent = project.title;
+  info.appendChild(title);
+
+  const description = document.createElement("div");
+  description.classList.add("description");
+  description.textContent = project.description;
+  info.appendChild(description);
 }
 
 function populateTodos(project) {
@@ -50,15 +64,3 @@ function populateTodos(project) {
 }
 
 export { displayDialog, populateSidebar, populateTodos };
-
-// item.addEventListener("click", () => {  
-    //   let title = document.createElement("div");
-    //   title.classList.add("title");
-    //   title.textContent = project.title;
-    //   info.appendChild(title);
-  
-    //   let description = document.createElement("div");
-    //   description.classList.add("description");
-    //   description.textContent = project.description;
-    //   info.appendChild(description);
-    // });
