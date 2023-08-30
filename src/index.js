@@ -1,6 +1,7 @@
 import { displayDialog, populateSidebar } from "./displayController";
 import { newProjectDialog } from "./newProject";
 import { newTodoDialog } from "./newTodo";
+import "./style.css";
 
 const content = document.createElement("div");
 content.classList.add("content");

@@ -1,0 +1,61 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+}
+
+.sidebar {
+  background-color: #94a3b8;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 8px;
+}
+
+.main button {
+  font-size: 1rem;
+}
+
+.info,
+.todos {
+  background-color: #cbd5e1;
+  padding: 8px;
+}
+
+.info div:first-of-type,
+.card div:first-of-type {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+button {
+  background-color: #475569;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 16px;
+  padding: 4px 8px;
+}
+
+dialog {
+  background-color: #cbd5e1;
+  font-size: 1.25rem;
+}
+
+legend {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+input {
+  background-color: #475569;
+  color: white;
+  font-family: inherit;
+  font-size: 1.125rem;
+  margin: 0;
+  border: none;
+  border-radius: 16px;
+  outline: none;
+  padding: 4px 8px;
+  box-sizing: border-box;
+}
